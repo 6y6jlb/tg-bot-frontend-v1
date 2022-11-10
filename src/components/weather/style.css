@@ -1,0 +1,22 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px 0;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+
+}
+
+.select {
+    width: 100%;
+    padding: 10px;
+    text-align-last:center;
+    padding-right: 29px;
+    direction: rtl;
+}
