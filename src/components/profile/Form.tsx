@@ -1,20 +1,51 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Button from "../button/Button";
 import "./style.css";
 import tz from '../../const/tz.json'
 import { LANGUAGE } from '../../const/language'
+import { useTelegram } from "../../hooks/useTelegram";
 
 
+const initialState = {
+    name: '',
+    timezone: 'Europe/Moscow',
+    language: LANGUAGE.ENGLISH,
+};
+
+type FormType = typeof initialState
 
 interface IProps { }
 
 const Form: React.FC<IProps> = (props) => {
+    const { TELEGRAM } = useTelegram();
 
-    const [form, setForm] = React.useState({
-        name: '',
-        timezone: 'Europe/Moscow',
-        language: LANGUAGE.ENGLISH,
-    });
+    React.useEffect(() => {
+        TELEGRAM.MainButton.setParams({
+            'text': 'Отправить сообщение'
+        })
+    }, [])
+
+    const [form, setForm] = React.useState(initialState);
+
+    React.useEffect(() => {
+        if (formValidate()) {
+            TELEGRAM.MainButton.show();
+        } else {
+            TELEGRAM.MainButton.hide();
+        }
+    }, [form, TELEGRAM])
+
+
+
+    const formValidate = (): boolean => {
+        let valid = false;
+        Object.values(form).forEach(el => {
+            if (el && el.length) valid = true
+            else return false
+            return valid;
+        })
+        return valid;
+    };
 
     const timezones = tz.map((el) => {
         return el.utc.map((zone, index) => {
