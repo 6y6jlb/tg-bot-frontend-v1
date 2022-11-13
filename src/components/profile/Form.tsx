@@ -22,7 +22,8 @@ const Form: React.FC<IProps> = (props) => {
     const [show, setShow] = React.useState(true)
 
     const submit = React.useCallback(() => {
-        TELEGRAM.sendData(JSON.stringify(form))
+        alert(form)
+        TELEGRAM.sendData(JSON.stringify({...form}))
     }, [form]);
 
 
@@ -95,7 +96,8 @@ const Form: React.FC<IProps> = (props) => {
                 <select name="timezone" value={form.timezone} onChange={fieldHandler} className="select">
                     {timezones}
                 </select>
-                {show ? 'show' : 'hide'}
+                <span onClick={submit}>test</span>
+                {show ? form.name : 'hide'}
             </form >
         </>
     )
