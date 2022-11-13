@@ -22,19 +22,19 @@ const Form: React.FC<IProps> = (props) => {
     const [show, setShow] = React.useState(true)
 
     const submit = React.useCallback(() => {
-        TELEGRAM.sendData(form)
+        TELEGRAM.sendData(JSON.stringify(form))
     }, [form, TELEGRAM]);
 
 
     React.useEffect(() => {
-        TELEGRAM.onEvent('mainButtonClicked', submit)
         TELEGRAM.MainButton.setParams({
             'text': 'Отправить информацию'
-        })
+        });
+        TELEGRAM.onEvent('mainButtonClicked', submit);
         return () => {
             TELEGRAM.offEvent('mainButtonClicked', submit)
         }
-    }, [])
+    }, [TELEGRAM])
 
 
     const formValidate = React.useCallback((newForm: FormType): boolean => {
