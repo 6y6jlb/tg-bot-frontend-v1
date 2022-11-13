@@ -23,7 +23,7 @@ const Form: React.FC<IProps> = (props) => {
 
     const submit = React.useCallback(() => {
         TELEGRAM.sendData(JSON.stringify(form))
-    }, [form, TELEGRAM]);
+    }, [form]);
 
 
     React.useEffect(() => {
@@ -34,7 +34,7 @@ const Form: React.FC<IProps> = (props) => {
         return () => {
             TELEGRAM.offEvent('mainButtonClicked', submit)
         }
-    }, [TELEGRAM])
+    }, [submit])
 
 
     const formValidate = React.useCallback((newForm: FormType): boolean => {
