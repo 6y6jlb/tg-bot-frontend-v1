@@ -12,32 +12,29 @@ const initialState = {
     language: LANGUAGE.ENGLISH,
 };
 
-type FormType = typeof initialState
 
 interface IProps { }
 
 const Form: React.FC<IProps> = (props) => {
     const { TELEGRAM } = useTelegram();
-
-    React.useEffect(() => {
-        TELEGRAM.MainButton.setParams({
-            'text': 'Отправить сообщение'
-        })
-    }, [])
-
     const [form, setForm] = React.useState(initialState);
 
+    const submit = React.useCallback(() => {
+        TELEGRAM.sendData(form)
+    }, [form, TELEGRAM]);
+
     React.useEffect(() => {
-        if (formValidate()) {
-            TELEGRAM.MainButton.show();
-        } else {
-            TELEGRAM.MainButton.hide();
+        TELEGRAM.onEvent('mainButtonClicked', submit)
+        TELEGRAM.MainButton.setParams({
+            'text': 'Отправить информацию'
+        })
+        return () => {
+            TELEGRAM.offEvent('mainButtonClicked', submit)
         }
-    }, [form, TELEGRAM])
+    }, [])
 
 
-
-    const formValidate = (): boolean => {
+    const formValidate = React.useCallback((): boolean => {
         let valid = false;
         Object.values(form).forEach(el => {
             if (el && el.length) valid = true
@@ -45,7 +42,19 @@ const Form: React.FC<IProps> = (props) => {
             return valid;
         })
         return valid;
-    };
+    }, [form]);
+
+    React.useEffect(() => {
+        if (formValidate()) {
+            TELEGRAM.MainButton.show();
+        } else {
+            TELEGRAM.MainButton.hide();
+        }
+    }, [form, TELEGRAM, formValidate])
+
+
+
+
 
     const timezones = tz.map((el) => {
         return el.utc.map((zone, index) => {
@@ -70,10 +79,7 @@ const Form: React.FC<IProps> = (props) => {
         }))
     }
 
-    const submit = (event: React.FormEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        console.log(form)
-    };
+
     return (
         <form className="form">
             <input name="name" value={form.name} onChange={formHandler} className="input" type="text" />
@@ -83,7 +89,6 @@ const Form: React.FC<IProps> = (props) => {
             <select name="timezone" value={form.timezone} onChange={formHandler} className="select">
                 {timezones}
             </select>
-            <Button onClick={submit} title="отправить" />
         </form >
     )
 };
