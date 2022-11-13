@@ -12,6 +12,7 @@ const initialState = {
     language: LANGUAGE.ENGLISH,
 };
 
+type FormType = typeof initialState;
 
 interface IProps { }
 
@@ -22,6 +23,7 @@ const Form: React.FC<IProps> = (props) => {
     const submit = React.useCallback(() => {
         TELEGRAM.sendData(form)
     }, [form, TELEGRAM]);
+
 
     React.useEffect(() => {
         TELEGRAM.onEvent('mainButtonClicked', submit)
@@ -34,25 +36,25 @@ const Form: React.FC<IProps> = (props) => {
     }, [])
 
 
-    const formValidate = React.useCallback((): boolean => {
-        let valid = false;
-        Object.values(form).forEach(el => {
-            if (el && el.length) valid = true
-            else return false
-            return valid;
+    const formValidate = React.useCallback((newForm: FormType): boolean => {
+        let isValid = true;
+        Object.keys(initialState).forEach(element => {
+            // @ts-ignore
+            if (!newForm[element]) {
+                isValid = false
+            }
         })
-        return valid;
-    }, [form]);
+        return isValid;
+    }, []);
+
 
     React.useEffect(() => {
-        if (formValidate()) {
+        if (formValidate(form)) {
             TELEGRAM.MainButton.show();
         } else {
             TELEGRAM.MainButton.hide();
         }
-    }, [form, TELEGRAM, formValidate])
-
-
+    }, [form, TELEGRAM])
 
 
 
@@ -70,7 +72,7 @@ const Form: React.FC<IProps> = (props) => {
 
     const languages = Object.values(LANGUAGE).map((el, index) => <option key={el + index} value={el}>{el}</option>);
 
-    const formHandler = (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
+    const fieldHandler = (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
         const fieildName = event.currentTarget?.name
         const newValue = event.currentTarget?.value;
         setForm((prevState) => ({
@@ -78,18 +80,20 @@ const Form: React.FC<IProps> = (props) => {
             [fieildName]: newValue,
         }))
     }
-
+    // console.dir(errors?.name)
 
     return (
-        <form className="form">
-            <input name="name" value={form.name} onChange={formHandler} className="input" type="text" />
-            <select name="language" value={form.language} onChange={formHandler} className="select">
-                {languages}
-            </select>
-            <select name="timezone" value={form.timezone} onChange={formHandler} className="select">
-                {timezones}
-            </select>
-        </form >
+        <>
+            <form className="form">
+                <input name="name" value={form.name} onChange={fieldHandler} className="input" type="text" />
+                <select name="language" value={form.language} onChange={fieldHandler} className="select">
+                    {languages}
+                </select>
+                <select name="timezone" value={form.timezone} onChange={fieldHandler} className="select">
+                    {timezones}
+                </select>
+            </form >
+        </>
     )
 };
 
