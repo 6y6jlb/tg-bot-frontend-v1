@@ -19,6 +19,7 @@ interface IProps { }
 const Form: React.FC<IProps> = (props) => {
     const { TELEGRAM } = useTelegram();
     const [form, setForm] = React.useState(initialState);
+    const [show, setShow] = React.useState(true)
 
     const submit = React.useCallback(() => {
         TELEGRAM.sendData(form)
@@ -50,8 +51,10 @@ const Form: React.FC<IProps> = (props) => {
 
     React.useEffect(() => {
         if (formValidate(form)) {
+            setShow(true)
             TELEGRAM.MainButton.show();
         } else {
+            setShow(false)
             TELEGRAM.MainButton.hide();
         }
     }, [form, TELEGRAM])
@@ -92,6 +95,7 @@ const Form: React.FC<IProps> = (props) => {
                 <select name="timezone" value={form.timezone} onChange={fieldHandler} className="select">
                     {timezones}
                 </select>
+                {show ? 'show' : 'hide'}
             </form >
         </>
     )
