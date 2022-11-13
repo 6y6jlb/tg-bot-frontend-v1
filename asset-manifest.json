@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tg-bot-frontend-v1/static/css/main.3531b3dc.css",
-    "main.js": "/tg-bot-frontend-v1/static/js/main.f4c4f41a.js",
+    "main.js": "/tg-bot-frontend-v1/static/js/main.59e5d8b4.js",
     "static/js/787.199f30fe.chunk.js": "/tg-bot-frontend-v1/static/js/787.199f30fe.chunk.js",
     "index.html": "/tg-bot-frontend-v1/index.html",
     "main.3531b3dc.css.map": "/tg-bot-frontend-v1/static/css/main.3531b3dc.css.map",
-    "main.f4c4f41a.js.map": "/tg-bot-frontend-v1/static/js/main.f4c4f41a.js.map",
+    "main.59e5d8b4.js.map": "/tg-bot-frontend-v1/static/js/main.59e5d8b4.js.map",
     "787.199f30fe.chunk.js.map": "/tg-bot-frontend-v1/static/js/787.199f30fe.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3531b3dc.css",
-    "static/js/main.f4c4f41a.js"
+    "static/js/main.59e5d8b4.js"
   ]
 }
