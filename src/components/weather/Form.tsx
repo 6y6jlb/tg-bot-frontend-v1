@@ -1,44 +1,46 @@
 import React from "react"
-import Button from "../button/Button";
 import "./style.css"
+import { LANGUAGE } from '../../const/language';
+import tz from '../../const/tz.json';
+import { FormType } from ".";
 
 
-// const initialState = {
-//     city: '',
-//     timezone: '',
 
-// };
+interface IProps {
+    formData: FormType,
+    onChange: (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => void
+}
 
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'increment':
-//       return {count: state.count + 1};
-//     case 'decrement':
-//       return {count: state.count - 1};
-//     default:
-//       throw new Error();
-//   }
-// }
+const Form: React.FC<IProps> = ({formData, onChange}) => {
 
-interface IProps { }
+    const timezones = React.useMemo(() => tz.map((el) => {
+        return el.utc.map((zone, index) => {
+            const utc = el.text.split(' ')[0];
+            return (
+                <option key={index + el.abbr} className="option" value={zone}>
+                    {utc}&nbsp;{zone}
+                </option>
+            )
+        })
 
-const Form: React.FC<IProps> = (props) => {
+    }), [])
 
-    // const [state, dispatch] = React.useReducer(reducer)
-    const options = ['Russian', 'English']
+    const languages = React.useMemo(() => Object.values(LANGUAGE).map((el, index) => <option key={el + index} value={el}>{el}</option>), []);
+
+
 
     return (
-        <form className="form">
-            <input className="input" type="text" />
-            <input className="input" type="text" />
-            <select className="select">
-                {options.map((el, index) => <option value={index}>{el}</option>)}
-            </select>
-            <select className="select">
-                {options.map((el, index) => <option value={index}>{el}</option>)}
-            </select>
-            <Button title="отправить" />
-        </form >
+        <>
+            <form className="form">
+                <input placeholder="city" name="city" value={formData.city} onChange={onChange} className="input" type="text" />
+                <select name="language" value={formData.language} onChange={onChange} className="select">
+                    {languages}
+                </select>
+                <select name="timezone" value={formData.timezone} onChange={onChange} className="select">
+                    {timezones}
+                </select>
+            </form >
+        </>
     )
 };
 
