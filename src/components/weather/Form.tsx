@@ -32,11 +32,11 @@ const Form: React.FC<IProps> = ({formData, onChange}) => {
     return (
         <>
             <form className="form">
-                <input placeholder="city" name="city" value={formData.city} onChange={onChange} className="input" type="text" />
-                <select name="language" value={formData.language} onChange={onChange} className="select">
+                <input placeholder="Укажите город" name="city" value={formData.city} onChange={onChange} className="input" type="text" />
+                <select name="Укажите предпочитаемый язык" value={formData.language} onChange={onChange} className="select">
                     {languages}
                 </select>
-                <select name="timezone" value={formData.timezone} onChange={onChange} className="select">
+                <select name="Укажите таймзону" value={formData.timezone} onChange={onChange} className="select">
                     {timezones}
                 </select>
             </form >

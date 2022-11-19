@@ -23,7 +23,6 @@ interface IProps {
 const WeatherProfile: React.FC<IProps> = ({ type }) => {
     const { TELEGRAM } = useTelegram();
     const [form, setForm] = React.useState(initialState);
-    const optionsTitle = React.useMemo(() => EVENT_TYPE[type].toLowerCase(), [type])
 
     const submit = React.useCallback(() => {
         TELEGRAM.sendData(JSON.stringify({ ...form }))
@@ -32,7 +31,7 @@ const WeatherProfile: React.FC<IProps> = ({ type }) => {
 
     React.useEffect(() => {
         TELEGRAM.MainButton.setParams({
-            'text': 'Создать ' + optionsTitle
+            'text': 'Создать ' + EVENT_TYPE[type].toLowerCase()
         });
         TELEGRAM.onEvent('mainButtonClicked', submit);
         return () => {
@@ -73,8 +72,8 @@ const WeatherProfile: React.FC<IProps> = ({ type }) => {
 
     return (
         <div>
-            <Title>Создание записи в рассписании</Title>
-            <Form optionsTitle={optionsTitle} formData={form} onChange={fieldHandler} />
+            <Title>Создание записи в рассписании на событие {EVENT_TYPE[type].toLowerCase()}</Title>
+            <Form optionsType={type} formData={form} onChange={fieldHandler} />
         </div>
     )
 };
