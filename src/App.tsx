@@ -7,12 +7,22 @@ import Event from "./components/event";
 import Profile from "./components/profile";
 import CustomerLayout from "./components/layouts/CustomerLayout";
 import { EVENT_TYPE } from "./const/event";
+import { getUser } from "./service/user";
+import { useRecoilState } from "recoil";
+import userState from "./state/user/auth-user-atom";
 
 function App() {
-  const { TELEGRAM } = useTelegram();
+  const { TELEGRAM, userId } = useTelegram();
+  const [user, setUser] = useRecoilState(userState)
 
   React.useEffect(() => {
     TELEGRAM.ready()
+    if (userId) {
+      (async function () {
+        const user = await getUser(userId)
+        setUser(user)
+      })()
+    }
 
   }, [TELEGRAM])
 
