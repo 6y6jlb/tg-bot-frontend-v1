@@ -36,7 +36,7 @@ const Form: React.FC<IProps> = ({formData, onChange}) => {
                 <select name="Укажите предпочитаемый язык" value={formData.language} onChange={onChange} className="select">
                     {languages}
                 </select>
-                <select name="Укажите таймзону" value={formData.timezone} onChange={onChange} className="select">
+                <select name="Укажите таймзону" value={formData.tz} onChange={onChange} className="select">
                     {timezones}
                 </select>
             </form >

@@ -24,7 +24,7 @@ function App() {
       })()
     }
 
-  }, [TELEGRAM])
+  }, [TELEGRAM, userId, setUser])
 
 
   return (

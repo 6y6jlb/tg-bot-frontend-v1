@@ -7,7 +7,7 @@ import "./style.css"
 
 const initialState = {
     city: '',
-    timezone: 'Europe/Moscow',
+    tz: 'Europe/Moscow',
     language: LANGUAGE.ENGLISH,
 };
 

@@ -40,7 +40,7 @@ const Form: React.FC<IProps> = ({formData, onChange, optionsType}) => {
                 <select name="language" value={formData.language} onChange={onChange} className="select">
                     {languages}
                 </select>
-                <select name="timezone" value={formData.timezone} onChange={onChange} className="select">
+                <select name="timezone" value={formData.tz} onChange={onChange} className="select">
                     {timezones}
                 </select>
             </form >

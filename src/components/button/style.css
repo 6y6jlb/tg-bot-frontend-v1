@@ -1,0 +1,5 @@
+.button {
+    background-color: var(--tg-theme-button-color);
+    min-width: 50px;
+    padding: 10px 0;
+}

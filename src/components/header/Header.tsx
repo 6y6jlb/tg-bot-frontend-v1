@@ -1,21 +1,27 @@
-import React from "react"
-import {useTelegram} from "../../hooks/useTelegram";
-import Button from "../button/Button";
-import "./style.css"
+import React from "react";
+import { useRecoilValueLoadable } from "recoil";
+import userState from "../../state/user/auth-user-atom";
+import "./style.css";
 
 interface IProps { }
 
 const Header: React.FC<IProps> = (props) => {
-    const { TELEGRAM ,onClose,onToggleButton} = useTelegram();
-    React.useEffect(() => {
-        TELEGRAM.ready()
-    
-      }, [TELEGRAM])
+    const user = useRecoilValueLoadable(userState);
+
+    const getLoadedValue = React.useCallback(() => {
+        switch (user.state) {
+            case 'hasValue':
+                return <h5 className="title">Добро пожаловать: {user.contents.name}</h5>;
+            case 'loading':
+                return <div>Loading...</div>;
+            case 'hasError':
+                throw user.contents;
+        }
+    }, [user])
+
     return (
         <div className="wrapper">
-            {/* <Button onClick={onClose} title="close" />
-            <Button onClick={onToggleButton} title="toggle main" /> */}
-            <h5 className="title">Добро пожаловать: {TELEGRAM.initDataUnsafe?.user?.username}</h5>
+            {getLoadedValue()}
         </div>
     )
 };
