@@ -1,10 +1,13 @@
-import React from "react"
+import React from "react";
+import { useRecoilState } from "recoil";
 import { LANGUAGE } from "../../const/language";
 import { useTelegram } from "../../hooks/useTelegram";
 import { updateUser } from "../../service/user";
+import commonNotificationState from "../../state/notification/notification-atom";
+import { NOTIFICATION } from "../../state/notification/types";
 import Title from "../title/Title";
 import Form from "./Form";
-import "./style.css"
+import "./style.css";
 
 const initialState = {
     name: '',
@@ -20,11 +23,21 @@ interface IProps { }
 const Profile: React.FC<IProps> = (props) => {
     const { TELEGRAM, userId } = useTelegram();
     const [form, setForm] = React.useState(initialState);
+    const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
 
     const submit = React.useCallback(async () => {
-        updateUser({ ...form, user_id: userId })
-    }, [form]);
 
+        try {
+            const response = await updateUser({ ...form, user_id: userId })
+            setNotifiations((oldState) => [...oldState, { message: 'Пользователь успешно сохранен', type: NOTIFICATION.SUCCESS, showed: false, created_at: new Date() }])
+        } catch (error: any) {
+            if (error.code === 400) {
+                console.log(error)
+                setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
+            }
+        }
+
+    }, [form]);
 
     // const submit = React.useCallback(() => {
     //     TELEGRAM.sendData(JSON.stringify({ ...form }))
@@ -75,7 +88,7 @@ const Profile: React.FC<IProps> = (props) => {
     return (
         <div>
             <Title>Профайл</Title>
-            <Form formData={form} onChange={fieldHandler} submit={submit}/>
+            <Form formData={form} onChange={fieldHandler} submit={submit} />
         </div>
     )
 };

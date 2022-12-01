@@ -1,5 +1,5 @@
-// export const BASE_ROUTE = 'http://localhost:5000/api/'; //local
-export const BASE_ROUTE = 'http://188.166.56.12:5000'; //prod
+export const BASE_ROUTE = 'http://localhost:5000/api/'; //local
+// export const BASE_ROUTE = 'http://188.166.56.12:5000'; //prod
 
 export enum ROUTES_ENUM {
     USERS = 'users',
