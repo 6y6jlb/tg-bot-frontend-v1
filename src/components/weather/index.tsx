@@ -1,6 +1,8 @@
 import React from "react"
+import { useRecoilState } from "recoil";
 import { LANGUAGE } from "../../const/language";
 import { useTelegram } from "../../hooks/useTelegram";
+import commonNotificationState from "../../state/notification/notification-atom";
 import Title from "../title/Title";
 import Form from "./Form";
 import "./style.css"
@@ -16,25 +18,24 @@ export type FormType = typeof initialState;
 
 interface IProps { }
 
-const WeatherProfile: React.FC<IProps> = (props) => {
+const Weather: React.FC<IProps> = (props) => {
     const { TELEGRAM } = useTelegram();
     const [form, setForm] = React.useState(initialState);
+    const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
 
-    const submit = React.useCallback(() => {
-        TELEGRAM.sendData(JSON.stringify({ ...form }))
-    }, [form]);
+    const submit = React.useCallback(async () => {
 
-
-    React.useEffect(() => {
-        TELEGRAM.MainButton.setParams({
-            'text': 'Отправить информацию'
-        });
-        TELEGRAM.onEvent('mainButtonClicked', submit);
-        return () => {
-            TELEGRAM.offEvent('mainButtonClicked', submit)
+        try {
+            const response = await createTask(form)
+            setNotifiations((oldState) => [...oldState, { message: 'Задача успешно сохранена', type: NOTIFICATION.SUCCESS, showed: false, created_at: new Date() }])
+        } catch (error: any) {
+            if (error.code === 400) {
+                console.log(error)
+                setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
+            }
         }
-    }, [submit])
 
+    }, [form]);
 
     const formValidate = React.useCallback((newForm: FormType): boolean => {
         let isValid = true;
@@ -48,13 +49,6 @@ const WeatherProfile: React.FC<IProps> = (props) => {
     }, []);
 
 
-    React.useEffect(() => {
-        if (formValidate(form)) {
-            TELEGRAM.MainButton.show();
-        } else {
-            TELEGRAM.MainButton.hide();
-        }
-    }, [form, TELEGRAM])
 
     const fieldHandler = (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
         const fieildName = event.currentTarget?.name
@@ -69,10 +63,10 @@ const WeatherProfile: React.FC<IProps> = (props) => {
     return (
         <div>
             <Title>Запрос погоды</Title>
-            <Form formData={form} onChange={fieldHandler} />
+            <Form disabled={!formValidate(form)} submit={submit} formData={form} onChange={fieldHandler} />
         </div>
     )
 };
 
 
-export default WeatherProfile;
+export default Weather;

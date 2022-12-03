@@ -3,7 +3,7 @@ import { useTelegram } from "./hooks/useTelegram";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Weather from "./components/weather";
-import Event from "./components/event";
+import Event from "./components/task";
 import Profile from "./components/profile";
 import CustomerLayout from "./components/layouts/CustomerLayout";
 import { EVENT_TYPE } from "./const/event";

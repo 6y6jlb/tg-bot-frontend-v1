@@ -1,7 +1,11 @@
 import React from "react"
+import { useRecoilState } from "recoil";
 import { EVENT_TYPE } from "../../const/event";
 import { LANGUAGE } from "../../const/language";
 import { useTelegram } from "../../hooks/useTelegram";
+import { createTask } from "../../service/task";
+import commonNotificationState from "../../state/notification/notification-atom";
+import { NOTIFICATION } from "../../state/notification/types";
 import Title from "../title/Title";
 import Form from "./Form";
 import "./style.css"
@@ -20,24 +24,25 @@ interface IProps {
     type: EVENT_TYPE
 }
 
-const WeatherProfile: React.FC<IProps> = ({ type }) => {
+const Task: React.FC<IProps> = ({ type }) => {
     const { TELEGRAM } = useTelegram();
     const [form, setForm] = React.useState(initialState);
+    const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
 
-    const submit = React.useCallback(() => {
-        TELEGRAM.sendData(JSON.stringify({ ...form }))
+    const submit = React.useCallback(async () => {
+
+        try {
+            const response = await createTask(form)
+            setNotifiations((oldState) => [...oldState, { message: 'Задача успешно сохранена', type: NOTIFICATION.SUCCESS, showed: false, created_at: new Date() }])
+        } catch (error: any) {
+            if (error.code === 400) {
+                console.log(error)
+                setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
+            }
+        }
+
     }, [form]);
 
-
-    React.useEffect(() => {
-        TELEGRAM.MainButton.setParams({
-            'text': 'Создать ' + EVENT_TYPE[type].toLowerCase()
-        });
-        TELEGRAM.onEvent('mainButtonClicked', submit);
-        return () => {
-            TELEGRAM.offEvent('mainButtonClicked', submit)
-        }
-    }, [submit])
 
 
     const formValidate = React.useCallback((newForm: FormType): boolean => {
@@ -52,14 +57,6 @@ const WeatherProfile: React.FC<IProps> = ({ type }) => {
     }, []);
 
 
-    React.useEffect(() => {
-        if (formValidate(form)) {
-            TELEGRAM.MainButton.show();
-        } else {
-            TELEGRAM.MainButton.hide();
-        }
-    }, [form, TELEGRAM])
-
     const fieldHandler = (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
         const fieildName = event.currentTarget?.name
         const newValue = event.currentTarget?.value;
@@ -73,10 +70,10 @@ const WeatherProfile: React.FC<IProps> = ({ type }) => {
     return (
         <div>
             <Title>Создание записи в рассписании на событие {EVENT_TYPE[type].toLowerCase()}</Title>
-            <Form optionsType={type} formData={form} onChange={fieldHandler} />
+            <Form disabled={!formValidate(form)} optionsType={type} formData={form} onChange={fieldHandler} submit={submit} />
         </div>
     )
 };
 
 
-export default WeatherProfile;
+export default Task;

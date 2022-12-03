@@ -39,20 +39,6 @@ const Profile: React.FC<IProps> = (props) => {
 
     }, [form]);
 
-    // const submit = React.useCallback(() => {
-    //     TELEGRAM.sendData(JSON.stringify({ ...form }))
-    // }, [form]);
-
-
-    // React.useEffect(() => {
-    //     TELEGRAM.MainButton.setParams({
-    //         'text': 'Отправить информацию'
-    //     });
-    //     TELEGRAM.onEvent('mainButtonClicked', submit);
-    //     return () => {
-    //         TELEGRAM.offEvent('mainButtonClicked', submit)
-    //     }
-    // }, [submit])
 
 
     const formValidate = React.useCallback((newForm: FormType): boolean => {
@@ -83,12 +69,13 @@ const Profile: React.FC<IProps> = (props) => {
             [fieildName]: newValue,
         }))
     }
+    
 
 
     return (
         <div>
             <Title>Профайл</Title>
-            <Form formData={form} onChange={fieldHandler} submit={submit} />
+            <Form disabled={!formValidate(form)} formData={form} onChange={fieldHandler} submit={submit} />
         </div>
     )
 };
