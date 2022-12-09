@@ -35,10 +35,7 @@ const Task: React.FC<IProps> = ({ type }) => {
             const response = await createTask(form)
             setNotifiations((oldState) => [...oldState, { message: 'Задача успешно сохранена', type: NOTIFICATION.SUCCESS, showed: false, created_at: new Date() }])
         } catch (error: any) {
-            if (error.code === 400) {
-                console.log(error)
-                setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
-            }
+            setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
         }
 
     }, [form]);

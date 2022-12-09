@@ -2,7 +2,10 @@ import React from "react"
 import { useRecoilState } from "recoil";
 import { LANGUAGE } from "../../const/language";
 import { useTelegram } from "../../hooks/useTelegram";
+import { getWeather } from "../../service/weather";
 import commonNotificationState from "../../state/notification/notification-atom";
+import { NOTIFICATION } from "../../state/notification/types";
+import weatherState from "../../state/weather/weather-atom";
 import Title from "../title/Title";
 import Form from "./Form";
 import "./style.css"
@@ -22,17 +25,16 @@ const Weather: React.FC<IProps> = (props) => {
     const { TELEGRAM } = useTelegram();
     const [form, setForm] = React.useState(initialState);
     const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
+    const [weather, setWeather] = useRecoilState(weatherState)
 
     const submit = React.useCallback(async () => {
 
         try {
-            const response = await createTask(form)
-            setNotifiations((oldState) => [...oldState, { message: 'Задача успешно сохранена', type: NOTIFICATION.SUCCESS, showed: false, created_at: new Date() }])
+            const weather = await getWeather(form)
+            setWeather((oldState) => [...oldState, weather])
+            setNotifiations((oldState) => [...oldState, { message: 'Запрос погоды выполнен', type: NOTIFICATION.SUCCESS, showed: false, created_at: new Date() }])
         } catch (error: any) {
-            if (error.code === 400) {
-                console.log(error)
-                setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
-            }
+            setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
         }
 
     }, [form]);

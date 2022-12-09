@@ -8,3 +8,7 @@ export interface IUserUpdate  extends UserProfileFormType{
 export interface ITaskUpdate  extends TaskFormType{
     id: string
 }
+
+export interface IWeatherParams {
+    city: string
+}

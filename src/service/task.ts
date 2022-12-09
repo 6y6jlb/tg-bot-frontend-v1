@@ -1,5 +1,6 @@
 import { FormType } from '../components/task';
 import { BASE_ROUTE, ROUTES_ENUM } from '../const/routes';
+import { throwOnError } from './error';
 import { ITaskUpdate } from './types';
 
 export const createTask = async (params: FormType) => {
@@ -58,26 +59,3 @@ export const updateTask = async (params: ITaskUpdate) => {
     await throwOnError(response);
     return response.json(); // parses JSON response into native JavaScript objects
 }
-
-
-
-
-async function throwOnError(response: Response) {
-    if (response.ok) {
-        return;
-    }
-
-    const json = await response.json();
-
-    const responseError = {
-        type: 'Error',
-        message: json.message || response.statusText || 'Something went wrong',
-        code: response.status || '',
-        errors: json.errors
-    };
-    let error = new Error();
-
-    error = { ...error, ...responseError };
-
-    throw error;
-};
