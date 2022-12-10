@@ -1,10 +1,10 @@
-import { BASE_ROUTE, ROUTES_ENUM } from '../const/routes';
+import { BASE_ROUTE, SERVICE_ROUTES_ENUM } from '../const/routes';
 import { throwOnError } from './error';
 import { IWeatherParams } from './types';
 
 export const getWeather = async (params: IWeatherParams) => {
 
-    const url = new URL(BASE_ROUTE + ROUTES_ENUM.WEATHER);
+    const url = new URL(BASE_ROUTE + SERVICE_ROUTES_ENUM.WEATHER);
 
     for (const param in params) {
         //@ts-ignore

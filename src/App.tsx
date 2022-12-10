@@ -1,15 +1,12 @@
-import Header from "./components/header/Header";
-import { useTelegram } from "./hooks/useTelegram";
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Weather from "./components/weather";
-import Event from "./components/task";
-import Profile from "./components/profile";
-import CustomerLayout from "./components/layouts/CustomerLayout";
-import { EVENT_TYPE } from "./const/event";
-import { getUser } from "./service/user";
 import { useRecoilState } from "recoil";
+import AppRouter from "./components/app-router";
+import Header from "./components/header/Header";
+import CustomerLayout from "./components/layouts/CustomerLayout";
+import { useTelegram } from "./hooks/useTelegram";
+import { getUser } from "./service/user";
 import userState from "./state/user/auth-user-atom";
+
 
 function App() {
   const { TELEGRAM, userId } = useTelegram();
@@ -31,12 +28,7 @@ function App() {
     <div className="App">
       <Header />
       <CustomerLayout>
-        <Routes>
-          <Route index element={<Weather />} />
-          <Route path="event-reminder" element={<Event type={EVENT_TYPE.REMINDER} />} />
-          <Route path="event-weather" element={<Event type={EVENT_TYPE.WEATHER} />} />
-          <Route path="profile" element={<Profile />} />
-        </Routes>
+      <AppRouter/>
       </CustomerLayout>
     </div>
   );

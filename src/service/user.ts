@@ -1,10 +1,10 @@
-import { BASE_ROUTE, ROUTES_ENUM } from './../const/routes';
+import { BASE_ROUTE, SERVICE_ROUTES_ENUM } from './../const/routes';
 import { throwOnError } from './error';
 import { IUserUpdate } from './types';
 
 export const getUser = async (userId: string) => {
 
-    const url = new URL(BASE_ROUTE + ROUTES_ENUM.USERS);
+    const url = new URL(BASE_ROUTE + SERVICE_ROUTES_ENUM.USERS);
 
     url.searchParams.append('user_id', userId);
 
@@ -23,7 +23,7 @@ export const getUser = async (userId: string) => {
 
 export const updateUser = async (params: IUserUpdate) => {
 
-    const url = new URL(BASE_ROUTE + ROUTES_ENUM.USERS);
+    const url = new URL(BASE_ROUTE + SERVICE_ROUTES_ENUM.USERS);
 
 
      const response = await fetch(url, {

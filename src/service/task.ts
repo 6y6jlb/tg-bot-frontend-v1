@@ -1,11 +1,11 @@
 import { FormType } from '../components/task';
-import { BASE_ROUTE, ROUTES_ENUM } from '../const/routes';
+import { BASE_ROUTE, SERVICE_ROUTES_ENUM } from '../const/routes';
 import { throwOnError } from './error';
 import { ITaskUpdate } from './types';
 
 export const createTask = async (params: FormType) => {
 
-    const url = new URL(BASE_ROUTE + ROUTES_ENUM.TASKS);
+    const url = new URL(BASE_ROUTE + SERVICE_ROUTES_ENUM.TASKS);
 
 
      const response = await fetch(url, {
@@ -24,7 +24,7 @@ export const createTask = async (params: FormType) => {
 
 export const getTask = async (taskId: string) => {
 
-    const url = new URL(BASE_ROUTE + ROUTES_ENUM.TASKS);
+    const url = new URL(BASE_ROUTE + SERVICE_ROUTES_ENUM.TASKS);
 
     url.searchParams.append('id', taskId);
 
@@ -43,7 +43,7 @@ export const getTask = async (taskId: string) => {
 
 export const updateTask = async (params: ITaskUpdate) => {
 
-    const url = new URL(BASE_ROUTE + ROUTES_ENUM.TASKS);
+    const url = new URL(BASE_ROUTE + SERVICE_ROUTES_ENUM.TASKS);
 
 
      const response = await fetch(url, {
