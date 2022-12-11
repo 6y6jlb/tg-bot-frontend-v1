@@ -53,7 +53,8 @@ export const updateTask = async (params: ITaskUpdate) => {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Content-Security-Policy': 'upgrade-insecure-requests'
         },
     });
     await throwOnError(response);
