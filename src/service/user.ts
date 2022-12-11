@@ -35,7 +35,6 @@ export const updateUser = async (params: IUserUpdate) => {
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
-            'Content-Security-Policy': 'upgrade-insecure-requests'
         },
     });
     await throwOnError(response);

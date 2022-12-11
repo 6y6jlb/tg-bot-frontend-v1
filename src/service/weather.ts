@@ -18,7 +18,6 @@ export const getWeather = async (params: IWeatherParams) => {
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
-            'Content-Security-Policy': 'upgrade-insecure-requests'
         },
     });
     await throwOnError(response);
