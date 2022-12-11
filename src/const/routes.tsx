@@ -24,23 +24,28 @@ export enum APP_ROUTES_ENUM {
 export const PUBLIC_ROUTES = [
     {
         path: '/' + APP_ROUTES_ENUM.INDEX,
+        navTitle: 'index',
         element: <Profile />
     },
     {
         path: '/' + APP_ROUTES_ENUM.PROFILE,
+        navTitle: 'profile',
         element: <Profile />
     },
     {
         path: '/' + APP_ROUTES_ENUM.WEATHER,
+        navTitle: 'weather',
         element: <Weather />
     },
     {
         path: '/' + APP_ROUTES_ENUM.EVENT_REMINDER,
+        navTitle: 'event-reminder',
         element: <Event type={EVENT_TYPE.REMINDER} />
     },
     {
         path: '/' + APP_ROUTES_ENUM.EVENT_WEATHER,
-        element: <Event type={EVENT_TYPE.REMINDER} />
+        navTitle: 'event-weather',
+        element: <Event type={EVENT_TYPE.WEATHER} />
     },
   ];
 

@@ -24,10 +24,10 @@ const CustomerLayout: React.FC<IProps> = (props) => {
         Store.addNotification({
           title: NOTIFICATION[notification.type],
           message:  notification.message,
-          type: getNotificationType(notification.type),                         // 'default', 'success', 'info', 'warning'
-          container: 'top-right',                // where to position the notifications
-          animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
-          animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
+          type: getNotificationType(notification.type),       // 'default', 'success', 'info', 'warning'
+          container: 'bottom-center',                             // where to position the notifications
+          animationIn: ["animated", "fadeIn"],                // animate.css classes that's applied
+          animationOut: ["animated", "fadeOut"],              // animate.css classes that's applied
           dismiss: {
             duration: 3000
           }

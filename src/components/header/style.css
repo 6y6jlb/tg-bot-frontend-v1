@@ -5,3 +5,12 @@
 .title {
     text-align: center;
 }
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+.nav-item {
+    color: gray;
+    text-decoration: none;
+}

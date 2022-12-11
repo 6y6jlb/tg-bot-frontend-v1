@@ -8,6 +8,7 @@ import { NOTIFICATION } from "../../state/notification/types";
 import weatherState from "../../state/weather/weather-atom";
 import Title from "../title/Title";
 import Form from "./Form";
+import List from "./List";
 import "./style.css"
 
 const initialState = {
@@ -66,6 +67,16 @@ const Weather: React.FC<IProps> = (props) => {
         <div>
             <Title>Запрос погоды</Title>
             <Form disabled={!formValidate(form)} submit={submit} formData={form} onChange={fieldHandler} />
+            <List hide={!weather.length} title="Прогнозы">
+                {weather.map(item => {
+                    return (
+                        <div className="list-item">
+                            <span> Место: {item.name} </span>
+                            <> Ощущается как: {item.main.feels_like} </>
+                        </div>
+                    )
+                })}
+            </List>
         </div>
     )
 };

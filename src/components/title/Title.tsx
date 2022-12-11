@@ -3,12 +3,13 @@ import React from "react";
 import "./style.css"
 
 interface IProps {
-    children: PropTypes.ReactNodeLike
+    children: PropTypes.ReactNodeLike,
+    className?: string
 }
 
-const Title: React.FC<IProps> = ({ children }) => {
+const Title: React.FC<IProps> = ({ children, className }) => {
     return (
-        <h2 className='title'>{children}</h2>
+        <h2 className={className + ' title'}>{children}</h2>
     )
 };
 

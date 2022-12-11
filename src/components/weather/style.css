@@ -16,7 +16,33 @@
 .select {
     width: 100%;
     padding: 10px;
-    text-align-last:center;
+    text-align-last: center;
     padding-right: 29px;
     direction: rtl;
+}
+
+.list-item {
+    position: relative;
+}
+
+.list-item::before {
+    content: '';
+    position: absolute;
+    /* background-color: var(--tg-theme-button-color); */
+    background-color: black;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    opacity: 0.2;
+}
+
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.list-wrapper>div {
+    padding: 0.8rem 1.5rem;
 }

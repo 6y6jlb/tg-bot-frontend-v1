@@ -1,7 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { useRecoilValueLoadable } from "recoil";
-import { PUBLIC_ROUTER, PUBLIC_ROUTES } from "../../const/routes";
+import { PUBLIC_ROUTES } from "../../const/routes";
 import userState from "../../state/user/auth-user-atom";
 import "./style.css";
 
@@ -23,23 +22,24 @@ const Header: React.FC<IProps> = (props) => {
 
     return (
         <div className="wrapper">
-            <nav>
 
+                <nav className="nav-wrapper">
                 {
                     PUBLIC_ROUTES.map(route => {
+                        const href = "/#"+route.path;
                         return (
-                            <a key={route.path}
-                                href={route.path}
+                            <a className="nav-item" key={route.path}
+                                href={href}
                             >
-                                {route.path}
+                                {route.navTitle}
                             </a>
                         )
 
                     })
                 }
 
+                </nav>
 
-            </nav>
             {getLoadedValue()}
         </div>
     )
