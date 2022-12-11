@@ -1,4 +1,5 @@
-export interface IOpenWeatherResponse {
+
+export interface IOpenWeather {
 
     "coord": {
         "lon": Number // 10.99,
@@ -48,4 +49,22 @@ export interface IOpenWeatherResponse {
     "name": String // "Zocca",
     "cod": Number // 200
 
+
+}
+
+export interface IWeatherResponse extends IOpenWeather {
+    "units": OPEN_WEATHER_UNITS,
+    "lang": String,
+}
+
+enum OPEN_WEATHER_UNITS {
+    IMPERIAL = 'imperial', //farengheit
+    METRIC = 'metric', //celsius
+    DEFAULT = '' //kelvin
+}
+
+export const TEMPERATURE_SIGN = {
+    [OPEN_WEATHER_UNITS.DEFAULT] : '°K',
+    [OPEN_WEATHER_UNITS.METRIC] : '°C',
+    [OPEN_WEATHER_UNITS.IMPERIAL] : '°F',
 }

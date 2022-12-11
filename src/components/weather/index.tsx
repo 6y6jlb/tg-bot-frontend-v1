@@ -1,15 +1,16 @@
-import React from "react"
+import React from "react";
 import { useRecoilState } from "recoil";
 import { LANGUAGE } from "../../const/language";
 import { useTelegram } from "../../hooks/useTelegram";
 import { getWeather } from "../../service/weather";
 import commonNotificationState from "../../state/notification/notification-atom";
 import { NOTIFICATION } from "../../state/notification/types";
+import { TEMPERATURE_SIGN } from "../../state/weather/types";
 import weatherState from "../../state/weather/weather-atom";
 import Title from "../title/Title";
 import Form from "./Form";
 import List from "./List";
-import "./style.css"
+import "./style.css";
 
 const initialState = {
     city: '',
@@ -62,20 +63,25 @@ const Weather: React.FC<IProps> = (props) => {
         }))
     }
 
+    const weatherItems = React.useMemo(() => weather.map(item => {
+        const sign = TEMPERATURE_SIGN[item.units];
+        return (
+            <div key={String(item.dt)} className="list-item">
+                <p> Место: {item.name} </p>
+                <p> Температура: {String(item.main.temp)} {sign}</p>
+                <p> Ощущается как: {String(item.main.feels_like)} {sign}</p>
+                <p> Влажность: {String(item.main.humidity)} </p>
+            </div>
+        )
+    }), [weather]);
+
 
     return (
         <div>
             <Title>Запрос погоды</Title>
             <Form disabled={!formValidate(form)} submit={submit} formData={form} onChange={fieldHandler} />
             <List hide={!weather.length} title="Прогнозы">
-                {weather.map(item => {
-                    return (
-                        <div className="list-item">
-                            <span> Место: {item.name} </span>
-                            <> Ощущается как: {item.main.feels_like} </>
-                        </div>
-                    )
-                })}
+                {weatherItems}
             </List>
         </div>
     )

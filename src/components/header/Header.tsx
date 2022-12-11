@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecoilValueLoadable } from "recoil";
 import { PUBLIC_ROUTES } from "../../const/routes";
+import { getHref } from "../../service/helpers/route";
 import userState from "../../state/user/auth-user-atom";
 import "./style.css";
 
@@ -26,10 +27,9 @@ const Header: React.FC<IProps> = (props) => {
                 <nav className="nav-wrapper">
                 {
                     PUBLIC_ROUTES.map(route => {
-                        const href = "/#"+route.path;
                         return (
                             <a className="nav-item" key={route.path}
-                                href={href}
+                                href={getHref(route.path)}
                             >
                                 {route.navTitle}
                             </a>
@@ -37,7 +37,6 @@ const Header: React.FC<IProps> = (props) => {
 
                     })
                 }
-
                 </nav>
 
             {getLoadedValue()}

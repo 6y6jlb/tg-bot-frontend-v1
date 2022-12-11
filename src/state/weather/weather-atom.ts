@@ -1,9 +1,9 @@
 import { atom } from "recoil";
-import { IOpenWeatherResponse } from "./types";
+import { IWeatherResponse } from "./types";
 
 const weatherState = atom({
   key: 'weather',
-  default: [] as Array<IOpenWeatherResponse>
+  default: [] as Array<IWeatherResponse>
 },
 );
 

@@ -28,8 +28,8 @@
 .list-item::before {
     content: '';
     position: absolute;
-    /* background-color: var(--tg-theme-button-color); */
-    background-color: black;
+    background-color: var(--tg-theme-button-color);
+    /* background-color: black; */
     left: 0px;
     top: 0px;
     bottom: 0px;

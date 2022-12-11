@@ -11,6 +11,6 @@
     justify-content: space-around;
 }
 .nav-item {
-    color: gray;
+    color: var(--tg-theme-hint-color);
     text-decoration: none;
 }

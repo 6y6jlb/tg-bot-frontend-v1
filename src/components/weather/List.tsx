@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import "./style.css"
 import Title from "../title/Title";
 
 interface IProps {
-    children?: Array<PropTypes.ReactNodeLike> | PropTypes.ReactNodeLike,
+    children?: React.ReactNode,
     title?: string,
     hide?: boolean
 }

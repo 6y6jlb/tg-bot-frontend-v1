@@ -10,4 +10,8 @@ h2 {
   font-family: Helvetica, sans-serif;
 }
 
+text {
+  color: var(--tg-theme-text-color);
+}
+
 .App {}

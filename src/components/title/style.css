@@ -7,5 +7,5 @@
 }
 
 .text-mutted {
-    color: gray;
+    color: var(--tg-theme-hint-color);
 }
