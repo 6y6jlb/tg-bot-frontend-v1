@@ -25,11 +25,11 @@ const CustomerLayout: React.FC<IProps> = (props) => {
           title: NOTIFICATION[notification.type],
           message:  notification.message,
           type: getNotificationType(notification.type),       // 'default', 'success', 'info', 'warning'
-          container: 'bottom-center',                             // where to position the notifications
+          container: 'top-right',                             // where to position the notifications
           animationIn: ["animated", "fadeIn"],                // animate.css classes that's applied
           animationOut: ["animated", "fadeOut"],              // animate.css classes that's applied
           dismiss: {
-            duration: 3000
+            duration:2000
           }
         })
         setNotifiations([...notifications.filter(item => item.created_at !== notification.created_at), { ...notification, showed: true }])

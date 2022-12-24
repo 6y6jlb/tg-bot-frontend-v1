@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <Header />
       <CustomerLayout>
-      <AppRouter/>
+        <AppRouter />
       </CustomerLayout>
     </div>
   );

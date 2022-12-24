@@ -4,14 +4,14 @@
   margin: 0;
   font-family: sans-serif;
 }
+body {
+  color: var(--tg-theme-text-color);
+}
 
 h2 {
   font-weight: 500;
   font-family: Helvetica, sans-serif;
 }
 
-text {
-  color: var(--tg-theme-text-color);
-}
 
 .App {}
