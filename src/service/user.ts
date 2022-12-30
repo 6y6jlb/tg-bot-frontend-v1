@@ -14,7 +14,8 @@ export const getUser = async (userId: string) => {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Content-Security-Policy': 'upgrade-insecure-requests'
         },
     });
     await throwOnError(response);
@@ -33,7 +34,8 @@ export const updateUser = async (params: IUserUpdate) => {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Content-Security-Policy': 'upgrade-insecure-requests'
         },
     });
     await throwOnError(response);
