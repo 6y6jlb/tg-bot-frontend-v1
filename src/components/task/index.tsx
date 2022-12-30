@@ -1,14 +1,13 @@
-import React from "react"
+import React from "react";
 import { useRecoilState } from "recoil";
 import { EVENT_TYPE } from "../../const/event";
 import { LANGUAGE } from "../../const/language";
-import { useTelegram } from "../../hooks/useTelegram";
 import { createTask } from "../../service/task";
 import commonNotificationState from "../../state/notification/notification-atom";
 import { NOTIFICATION } from "../../state/notification/types";
 import Title from "../title/Title";
 import Form from "./Form";
-import "./style.css"
+import "./style.css";
 
 const initialState = {
     time: '',
@@ -25,7 +24,6 @@ interface IProps {
 }
 
 const Task: React.FC<IProps> = ({ type }) => {
-    const { TELEGRAM } = useTelegram();
     const [form, setForm] = React.useState(initialState);
     const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
 

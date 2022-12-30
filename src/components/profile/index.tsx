@@ -21,14 +21,14 @@ export type FormType = typeof initialState;
 interface IProps { }
 
 const Profile: React.FC<IProps> = (props) => {
-    const { TELEGRAM, userId } = useTelegram();
+    const { tg, userTg } = useTelegram();
     const [form, setForm] = React.useState(initialState);
     const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
 
     const submit = React.useCallback(async () => {
 
         try {
-            const response = await updateUser({ ...form, user_id: userId })
+            const response = await updateUser({ ...form, user_id: userTg?.id })
             setNotifiations((oldState) => [...oldState, { message: 'Пользователь успешно сохранен', type: NOTIFICATION.SUCCESS, showed: false, created_at: new Date() }])
         } catch (error: any) {
             setNotifiations((oldState) => [...oldState, { message: error.message, type: NOTIFICATION.ERROR, showed: false, created_at: new Date() }])
@@ -52,11 +52,11 @@ const Profile: React.FC<IProps> = (props) => {
 
     React.useEffect(() => {
         if (formValidate(form)) {
-            TELEGRAM.MainButton.show();
+            tg.MainButton.show();
         } else {
-            TELEGRAM.MainButton.hide();
+            tg.MainButton.hide();
         }
-    }, [form, TELEGRAM])
+    }, [form, tg])
 
     const fieldHandler = (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
         const fieildName = event.currentTarget?.name

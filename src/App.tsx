@@ -9,19 +9,19 @@ import userState from "./state/user/auth-user-atom";
 
 
 function App() {
-  const { TELEGRAM, userId } = useTelegram();
+  const { tg, userTg } = useTelegram();
   const [user, setUser] = useRecoilState(userState)
 
   React.useEffect(() => {
-    TELEGRAM.ready()
-    if (userId) {
+    tg.ready()
+    if (userTg?.id) {
       (async function () {
-        const user = await getUser(userId)
+        const user = await getUser(userTg.id)
         setUser(user)
       })()
     }
 
-  }, [TELEGRAM, userId, setUser])
+  }, [tg, userTg.id, setUser])
 
 
   return (

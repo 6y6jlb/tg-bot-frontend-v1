@@ -1,7 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { LANGUAGE } from "../../const/language";
-import { useTelegram } from "../../hooks/useTelegram";
 import { getWeather } from "../../service/weather";
 import commonNotificationState from "../../state/notification/notification-atom";
 import { NOTIFICATION } from "../../state/notification/types";
@@ -24,7 +23,6 @@ export type FormType = typeof initialState;
 interface IProps { }
 
 const Weather: React.FC<IProps> = (props) => {
-    const { TELEGRAM } = useTelegram();
     const [form, setForm] = React.useState(initialState);
     const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
     const [weather, setWeather] = useRecoilState(weatherState)
