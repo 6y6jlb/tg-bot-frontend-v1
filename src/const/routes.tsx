@@ -5,7 +5,7 @@ import { EVENT_TYPE } from "./event";
 import { createHashRouter } from "react-router-dom";
 
 // export const BASE_ROUTE = 'http://localhost:5000/api/'; //local
-export const BASE_ROUTE = 'http://188.166.56.12:5000'; //prod
+export const BASE_ROUTE = 'http://188.166.56.12:5000/api/'; //prod
 
 export const PREFIX = 'tg-bot-frontend-v1';
 
