@@ -11,7 +11,8 @@ interface IProps { }
 const Header: React.FC<IProps> = (props) => {
     const user = useRecoilValueLoadable(userState);
     const { userTg, } = useTelegram();
-
+    console.log(user)
+    console.log(userTg)
     const getLoadedValue = React.useCallback(() => {
         switch (user.state) {
             case 'hasValue':
@@ -26,7 +27,7 @@ const Header: React.FC<IProps> = (props) => {
     return (
         <div className="wrapper">
 
-                <nav className="nav-wrapper">
+            <nav className="nav-wrapper">
                 {
                     PUBLIC_ROUTES.map(route => {
                         return (
@@ -39,7 +40,7 @@ const Header: React.FC<IProps> = (props) => {
 
                     })
                 }
-                </nav>
+            </nav>
 
             {getLoadedValue()}
         </div>

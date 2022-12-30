@@ -14,14 +14,14 @@ function App() {
 
   React.useEffect(() => {
     tg.ready()
-    if (userTg?.id) {
-      (async function () {
-        const user = await getUser(userTg.id)
-        setUser(user)
-      })()
-    }
+    // if (userTg?.id) {
+    //   (async function () {
+    //     const user = await getUser(userTg.id)
+    //     setUser(user)
+    //   })()
+    // }
 
-  }, [tg, userTg, setUser])
+  }, [])
 
 
   return (
