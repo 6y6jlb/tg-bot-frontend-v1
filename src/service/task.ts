@@ -54,7 +54,6 @@ export const updateTask = async (params: ITaskUpdate) => {
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
-            'Content-Security-Policy': 'upgrade-insecure-requests'
         },
     });
     await throwOnError(response);
