@@ -13,7 +13,7 @@ export const getWeather = async (params: IWeatherParams) => {
 
     const response = await fetch(url, {
         method: 'GET',
-        mode: 'cors',
+        // mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
