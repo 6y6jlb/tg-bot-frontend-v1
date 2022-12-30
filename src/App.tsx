@@ -21,7 +21,7 @@ function App() {
       })()
     }
 
-  }, [tg, userTg.id, setUser])
+  }, [tg, userTg, setUser])
 
 
   return (
