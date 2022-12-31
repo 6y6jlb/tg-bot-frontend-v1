@@ -14,7 +14,7 @@ const Header: React.FC<IProps> = (props) => {
     const getLoadedValue = React.useCallback(() => {
         switch (authUser.state) {
             case 'hasValue':
-                return <h5 className="title">Добро пожаловать: {isAuth ? authUser.contents.name : 'путник'}</h5>;
+                return <h5 className="title">Добро пожаловать: {authUser.contents.name ?? 'путник'}</h5>;
             case 'loading':
                 return <div>Loading...</div>;
             case 'hasError':
@@ -29,7 +29,7 @@ const Header: React.FC<IProps> = (props) => {
             return PUBLIC_ROUTES
         }
     }, [isAuth])
-    
+
     return (
         <div className="wrapper">
 
