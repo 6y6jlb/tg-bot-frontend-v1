@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { EVENT_TYPE } from "../../const/event";
 import { LANGUAGE } from "../../const/language";
 import { createTask } from "../../service/task";
@@ -25,7 +25,7 @@ interface IProps {
 
 const Task: React.FC<IProps> = ({ type }) => {
     const [form, setForm] = React.useState(initialState);
-    const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
+    const setNotifiations = useSetRecoilState(commonNotificationState)
 
     const submit = React.useCallback(async () => {
 

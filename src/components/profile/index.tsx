@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { LANGUAGE } from "../../const/language";
 import { useTelegram } from "../../hooks/useTelegram";
 import { updateUser } from "../../service/user";
@@ -23,8 +23,8 @@ interface IProps { }
 const Profile: React.FC<IProps> = (props) => {
     const { tg, userTg } = useTelegram();
     const [form, setForm] = React.useState(initialState);
-    const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
-
+    const setNotifiations = useSetRecoilState(commonNotificationState)
+    
     const submit = React.useCallback(async () => {
 
         try {

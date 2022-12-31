@@ -23,21 +23,16 @@ export enum APP_ROUTES_ENUM {
     EVENT_WEATHER = 'event-weather',
 }
 
-export const PUBLIC_ROUTES = [
+export const PRIVATE_ROUTES = [
     {
         path: '/' + APP_ROUTES_ENUM.INDEX,
-        navTitle: 'index',
-        element: <Profile />
+        navTitle: 'weather',
+        element: <Weather />
     },
     {
         path: '/' + APP_ROUTES_ENUM.PROFILE,
         navTitle: 'profile',
         element: <Profile />
-    },
-    {
-        path: '/' + APP_ROUTES_ENUM.WEATHER,
-        navTitle: 'weather',
-        element: <Weather />
     },
     {
         path: '/' + APP_ROUTES_ENUM.EVENT_REMINDER,
@@ -51,4 +46,13 @@ export const PUBLIC_ROUTES = [
     },
   ];
 
+  export const PUBLIC_ROUTES = [
+    {
+        path: '/' + APP_ROUTES_ENUM.INDEX,
+        navTitle: 'weather',
+        element: <Weather />
+    },
+  ];
+
 export const PUBLIC_ROUTER = createHashRouter(PUBLIC_ROUTES);
+export const PRIVATE_ROUTER = createHashRouter(PRIVATE_ROUTES);

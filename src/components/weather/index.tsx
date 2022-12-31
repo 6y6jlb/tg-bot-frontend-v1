@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { LANGUAGE } from "../../const/language";
 import { getWeather } from "../../service/weather";
 import commonNotificationState from "../../state/notification/notification-atom";
@@ -24,7 +24,7 @@ interface IProps { }
 
 const Weather: React.FC<IProps> = (props) => {
     const [form, setForm] = React.useState(initialState);
-    const [notifications, setNotifiations] = useRecoilState(commonNotificationState)
+    const setNotifiations = useSetRecoilState(commonNotificationState)
     const [weather, setWeather] = useRecoilState(weatherState)
 
     const submit = React.useCallback(async () => {

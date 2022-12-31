@@ -1,33 +1,40 @@
 import React from "react";
 import { useRecoilValueLoadable } from "recoil";
-import { PUBLIC_ROUTES } from "../../const/routes";
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "../../const/routes";
 import { getHref } from "../../service/helpers/route";
-import userState from "../../state/user/auth-user-atom";
+import { userState } from "../../state/user/auth-user-atom";
 import "./style.css";
 
 interface IProps { }
 
 const Header: React.FC<IProps> = (props) => {
-    const user = useRecoilValueLoadable(userState);
-
+    const authUser = useRecoilValueLoadable(userState);
 
     const getLoadedValue = React.useCallback(() => {
-        switch (user.state) {
+        switch (authUser.state) {
             case 'hasValue':
-                return <h5 className="title">Добро пожаловать: {user.contents.name}</h5>;
+                return <h5 className="title">Добро пожаловать: {authUser.contents.name ?? 'путник'}</h5>;
             case 'loading':
                 return <div>Loading...</div>;
             case 'hasError':
-                throw user.contents;
+                throw authUser.contents;
         }
-    }, [user])
+    }, [authUser])
+
+    const getRoutes = React.useCallback(() => {
+        if (authUser) {
+            return PRIVATE_ROUTES
+        } else {
+            return PUBLIC_ROUTES
+        }
+    }, [authUser])
 
     return (
         <div className="wrapper">
 
             <nav className="nav-wrapper">
                 {
-                    PUBLIC_ROUTES.map(route => {
+                    getRoutes().map(route => {
                         return (
                             <a className="nav-item" key={route.path}
                                 href={getHref(route.path)}
@@ -35,7 +42,6 @@ const Header: React.FC<IProps> = (props) => {
                                 {route.navTitle}
                             </a>
                         )
-
                     })
                 }
             </nav>
