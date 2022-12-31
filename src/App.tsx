@@ -17,7 +17,7 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-    console.dir(userTg)
+    console.log(userTg)
     if (userTg?.id) {
       (async function () {
         const user = await getUser(userTg.id)
