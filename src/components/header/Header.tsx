@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useRecoilValueLoadable } from "recoil";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "../../const/routes";
 import { getHref } from "../../service/helpers/route";
@@ -9,11 +9,12 @@ interface IProps { }
 
 const Header: React.FC<IProps> = (props) => {
     const authUser = useRecoilValueLoadable(userState);
+    const isAuth = useMemo(() => authUser.contents.loaded && authUser.contents.name, [authUser])
 
     const getLoadedValue = React.useCallback(() => {
         switch (authUser.state) {
             case 'hasValue':
-                return <h5 className="title">Добро пожаловать: {authUser.contents.name ?? 'путник'}</h5>;
+                return <h5 className="title">Добро пожаловать: {isAuth ? authUser.contents.name : 'путник'}</h5>;
             case 'loading':
                 return <div>Loading...</div>;
             case 'hasError':
@@ -22,13 +23,13 @@ const Header: React.FC<IProps> = (props) => {
     }, [authUser])
 
     const getRoutes = React.useCallback(() => {
-        if (authUser) {
+        if (isAuth) {
             return PRIVATE_ROUTES
         } else {
             return PUBLIC_ROUTES
         }
-    }, [authUser])
-
+    }, [isAuth])
+    
     return (
         <div className="wrapper">
 
