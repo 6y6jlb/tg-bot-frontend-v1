@@ -38,7 +38,7 @@ const Form: React.FC<IProps> = ({ formData, onChange, submit, disabled }) => {
     return (
         <form className="form">
             <input required placeholder="Укажите ваше имя" name="name" value={formData.name} onChange={onChange} className="input" type="text" />
-            <select name="Укажите предпочитаемы язык" value={formData.language} onChange={onChange} className="select">
+            <select name="language" placeholder="Укажите предпочитаемы язык" value={formData.language} onChange={onChange} className="select">
                 {languages}
             </select>
             <select name="timezone" value={formData.tz} onChange={onChange} className="select">

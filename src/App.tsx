@@ -13,7 +13,8 @@ function App() {
   const setUser = useSetRecoilState(userState)
 
   React.useEffect(() => {
-    tg.ready()
+    tg.ready();
+    tg.MainButton.hide();
   }, [])
 
   React.useEffect(() => {

@@ -50,13 +50,13 @@ const Profile: React.FC<IProps> = (props) => {
     }, []);
 
 
-    React.useEffect(() => {
-        if (formValidate(form)) {
-            tg.MainButton.show();
-        } else {
-            tg.MainButton.hide();
-        }
-    }, [form, tg])
+    // React.useEffect(() => {
+    //     if (formValidate(form)) {
+    //         tg.MainButton.show();
+    //     } else {
+    //         tg.MainButton.hide();
+    //     }
+    // }, [form, tg])
 
     const fieldHandler = (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
         const fieildName = event.currentTarget?.name
