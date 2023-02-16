@@ -21,6 +21,7 @@ export enum APP_ROUTES_ENUM {
     WEATHER = 'weather',
     EVENT_REMINDER = 'event-reminder',
     EVENT_WEATHER = 'event-weather',
+    EVENT_CURRENCY = 'event-currency',
 }
 
 export const PRIVATE_ROUTES = [
@@ -51,6 +52,11 @@ export const PRIVATE_ROUTES = [
         path: '/' + APP_ROUTES_ENUM.INDEX,
         navTitle: 'weather',
         element: <Weather />
+    },
+    {
+        path: '/' + APP_ROUTES_ENUM.PROFILE,
+        navTitle: 'profile',
+        element: <Profile />
     },
   ];
 

@@ -7,7 +7,6 @@ export interface IUser {
     location?: string,
     currency?: string,
     language?: string,
-    mess_count: number
 }
 
 export interface IUserState extends IUser {
