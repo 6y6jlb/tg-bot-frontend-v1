@@ -53,11 +53,6 @@ export const PRIVATE_ROUTES = [
         navTitle: 'weather',
         element: <Weather />
     },
-    {
-        path: '/' + APP_ROUTES_ENUM.PROFILE,
-        navTitle: 'profile',
-        element: <Profile />
-    },
   ];
 
 export const PUBLIC_ROUTER = createHashRouter(PUBLIC_ROUTES);
